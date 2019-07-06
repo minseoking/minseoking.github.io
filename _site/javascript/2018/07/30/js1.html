@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>[javascript] var, let, const 차이</title>
+  <meta name="description" content="친구들과 프론드엔드 스터디후 포스팅하기로 하여 var, let, const 의 차이를 포스팅 하도록 하겠습니다.(1주일도 안간 스터디모임….)">
+  
+  <meta name="author" content="이민석">
+  <meta name="copyright" content="&copy; 이민석 2019">
+  
+
+  <!-- External libraries -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/monokai-sublime.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css">
+
+  <!-- Favicon and other icons (made with http://www.favicon-generator.org/) -->
+  <link rel="shortcut icon" href="/assets/icons/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="57x57" href="/assets/icons/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/assets/icons/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/icons/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/icons/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/icons/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/assets/icons/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/assets/icons/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/icons/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="/assets/icons/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/icons/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+  <link rel="manifest" href="/assets/icons/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/assets/icons/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  <!-- Facebook OGP cards -->
+  <meta property="og:description" content="친구들과 프론드엔드 스터디후 포스팅하기로 하여 var, let, const 의 차이를 포스팅 하도록 하겠습니다.(1주일도 안간 스터디모임….)" />
+  <meta property="og:url" content="http://minseoking.github.io" />
+  <meta property="og:site_name" content="민서깅 개발 블로그" />
+  <meta property="og:title" content="[javascript] var, let, const 차이" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="http://minseoking.github.io/assets/logo.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="612" />
+  <meta property="og:image:height" content="605" />
+  
+
+  
+  <!-- Twitter: card tags -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="[javascript] var, let, const 차이">
+  <meta name="twitter:description" content="친구들과 프론드엔드 스터디후 포스팅하기로 하여 var, let, const 의 차이를 포스팅 하도록 하겠습니다.(1주일도 안간 스터디모임….)">
+  <meta name="twitter:image" content="http://minseoking.github.io/assets/logo.png">
+  <meta name="twitter:url" content="http://minseoking.github.io">
+  
+
+  <!-- Open Source Protocol -->
+  <!--  -->
+
+  <!-- Site styles -->
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://minseoking.github.io/javascript/2018/07/30/js1.html">
+  <link rel="alternate" type="application/rss+xml" title="민서깅 개발 블로그" href="http://minseoking.github.io/feed.xml" />
+</head>
+
+
+  <body>
+
+    <header class="navigation" role="banner">
+  <div class="navigation-wrapper">
+    <a href="/" class="logo">
+      
+      <img src="/assets/logo.png" alt="민서깅 개발 블로그">
+      
+    </a>
+    <a href="javascript:void(0)" class="navigation-menu-button" id="js-mobile-menu">
+      <i class="fa fa-bars"></i>
+    </a>
+    <nav role="navigation">
+      <ul id="js-navigation-menu" class="navigation-menu show">
+        
+          
+          <li class="nav-link"><a href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <li class="nav-link"><a href="/posts/">Posts</a>
+          
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+    <div class="page-content">
+        <div class="post">
+
+<div class="post-header-container " >
+<!-- <div class="post-header-container " > -->
+  <div class="scrim ">
+    <header class="post-header">
+      <h1 class="title">[javascript] var, let, const 차이</h1>
+      <p class="info">by <strong>이민석</strong></p>
+    </header>
+  </div>
+</div>
+
+<div class="wrapper">
+
+ <span class="page-divider">
+  <span class="one"></span>
+  <span class="two"></span>
+</span>
+ 
+
+<section class="post-meta">
+  <div class="post-date">July 30, 2018</div>
+  <div class="post-categories">
+  in 
+    
+    <a href="/category/javascript">Javascript</a>
+    
+  
+  </div>
+</section>
+
+<article class="post-content">
+  <p>친구들과 프론드엔드 스터디후 포스팅하기로 하여 <br />
+var, let, const 의 차이를 포스팅 하도록 하겠습니다.<br />
+<del>(1주일도 안간 스터디모임….)</del></p>
+
+<p>우선 var는 function-scoped이고 let, const는 block-scoped입니다.<br />
+function-scoped : 함수 단위로 유효범위를 가집니다.<br />
+block-scoped : 블록 단위로만 유효범위를 가집니다.</p>
+
+<h2 id="varfunction-scoped">var(function-scoped)란?</h2>
+<p>우선 var는 C#의 var 와 다르게 변수의 재 선언이 가능합니다.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">test</span> <span class="o">=</span> <span class="s1">'test1'</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">test</span> <span class="o">=</span> <span class="s1">'test2'</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">test</span><span class="p">);</span> <span class="c1">// test2</span></code></pre></figure>
+
+<p><code class="highlighter-rouge">function-scoped</code>를 아래의 예제로 이해해보겠습니다.  <br />
+1번 코드를 보면 for문안에서 item을 지역변수로 사용하고,<br />
+for문 밖에서 로그를 찍어보면 item 변수 값이 잘 나옵니다.<br />
+이러한 이유는 <code class="highlighter-rouge">호이스팅(hoisting)</code>으로 다음 포스팅에서 설명하겠습니다.</p>
+
+<p>2번 코드는 itemValue 라는 함수를 구현하고 함수 내부에서 item변수를 사용합니다.<br />
+후에 itemValue 함수를 호출한 후에 item 값을 확인해 보니 에러가 발생합니다.<br />
+에러가 발생한 이유는 var가 함수에서만 유효하기 때문입니다.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// 1</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">item</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">item</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span> <span class="nx">item</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'item : '</span><span class="o">+</span> <span class="nx">item</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'OutPut :'</span><span class="o">+</span> <span class="nx">item</span><span class="p">);</span> <span class="c1">// OutPut : 10</span>
+
+<span class="c1">// 2</span>
+<span class="kd">function</span> <span class="nx">itemValue</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">item</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">item</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span> <span class="nx">item</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'item : '</span><span class="o">+</span> <span class="nx">item</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">itemValue</span> <span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'OutPut :'</span><span class="o">+</span> <span class="nx">item</span><span class="p">);</span> <span class="c1">// Uncaught ReferenceError: value is not defined</span></code></pre></figure>
+
+<!-- ## 호이스팅(Hoisting)란?
+변수 선언문 및 초기화시 해당 함수안에서 최상단으로 끌어올려지는 변수입니다.
+
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">if</span><span class="p">(</span><span class="kc">true</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s1">'minseok'</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'OutPut :'</span><span class="o">+</span> <span class="nx">name</span><span class="p">);</span> <span class="c1">// OutPut : minseok</span></code></pre></figure>
+
+위 코드는 호이스팅에 의해 아래와 같이 바뀌게 됩니다.
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">name</span><span class="p">;</span> <span class="c1">// 선언</span>
+<span class="k">if</span><span class="p">(</span><span class="kc">true</span><span class="p">){</span>
+  <span class="nx">name</span> <span class="o">=</span> <span class="s1">'minseok'</span><span class="p">;</span> <span class="c1">// 할당</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'OutPut :'</span><span class="o">+</span> <span class="nx">name</span><span class="p">);</span> <span class="c1">// OutPut : minseok</span></code></pre></figure>
+ -->
+
+<h2 id="let-constblock-scoped">let, const(block-scoped)란?</h2>
+<p><code class="highlighter-rouge">ES6(ECMAScript 표준의 6번째, ES2015)</code>에서 추가된 키워드입니다.<br />
+var 키워드만 존재했기 때문에 변수 재선언, 호이스팅으로 인한 참조 에러가 <br />
+발생하지 않는 등 혼란스럽고 불 명확한 코드작성을 피하기 위해 만들어졌습니다.</p>
+
+<p><code class="highlighter-rouge">let</code>,<code class="highlighter-rouge">const</code>를 사용하면 변수 재선언이 불가능하고,<br />
+<code class="highlighter-rouge">let</code>은 변수에 재할당이 가능하지만,(객체지향언어의 변수)<br />
+<code class="highlighter-rouge">const</code>는 변수 재선언, 재할당 모두 불가능합니다. (객체지향언어의 상수)</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// let</span>
+<span class="kd">let</span> <span class="nx">letTest</span> <span class="o">=</span> <span class="s1">'test1'</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">letTest</span> <span class="o">=</span> <span class="s1">'test2'</span><span class="p">;</span> <span class="c1">// Uncaught SyntaxError: Identifier 'test' has already been declared</span>
+<span class="nx">letTest</span> <span class="o">=</span> <span class="s1">'test3'</span>
+
+<span class="c1">// const</span>
+<span class="kr">const</span> <span class="nx">constTest</span> <span class="o">=</span> <span class="s1">'test1'</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">constTest</span> <span class="o">=</span> <span class="s1">'test2'</span><span class="p">;</span> <span class="c1">// Uncaught SyntaxError: Identifier 'constTest' has already been declared</span>
+<span class="nx">constTest</span> <span class="o">=</span><span class="s1">'test3'</span><span class="p">;</span> <span class="c1">//Uncaught TypeError: Assignment to constant variable.</span></code></pre></figure>
+
+
+</article>
+
+
+
+
+
+<!-- <section class="rss">
+  <p class="rss-subscribe text"><strong>Subscribe <a href="/feed.xml">via RSS</a></strong></p>
+</section> -->
+
+<!-- <section class="share">
+  <span>Share: </span>
+  
+    
+    
+      <a href="//twitter.com/share?text=%5Bjavascript%5D+var%2C+let%2C+const+%EC%B0%A8%EC%9D%B4&url=http%3A%2F%2Fminseoking.github.io%2Fjavascript%2F2018%2F07%2F30%2Fjs1.html&via="
+        onclick="window.open(this.href, 'twitter-share', 'width=550,height=255');return false;">
+        <i class="fa fa-twitter-square fa-lg"></i>
+      </a>
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+      <a href="//www.facebook.com/sharer.php?t=%5Bjavascript%5D+var%2C+let%2C+const+%EC%B0%A8%EC%9D%B4&u=http%3A%2F%2Fminseoking.github.io%2Fjavascript%2F2018%2F07%2F30%2Fjs1.html"
+        onclick="window.open(this.href, 'facebook-share', 'width=550,height=255');return false;">
+        <i class="fa fa-facebook-square fa-lg"></i>
+      </a>
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      <a href="//plus.google.com/share?title=%5Bjavascript%5D+var%2C+let%2C+const+%EC%B0%A8%EC%9D%B4&url=http%3A%2F%2Fminseoking.github.io%2Fjavascript%2F2018%2F07%2F30%2Fjs1.html"
+        onclick="window.open(this.href, 'google-plus-share', 'width=550,height=255');return false;">
+        <i class="fa fa-google-plus-square fa-lg"></i>
+      </a>
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+    
+      <a href="//www.pinterest.com/pin/create/button/?description=%5Bjavascript%5D+var%2C+let%2C+const+%EC%B0%A8%EC%9D%B4&url=http%3A%2F%2Fminseoking.github.io%2Fjavascript%2F2018%2F07%2F30%2Fjs1.html&media=http://minseoking.github.io"
+        onclick="window.open(this.href, 'pinterest-share', 'width=550,height=255');return false;">
+        <i class="fa fa-pinterest-square fa-lg"></i>
+      </a>
+    
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+      <a href="//www.reddit.com/submit" onclick="window.location = '//www.reddit.com/submit?url=' + encodeURIComponent('http://minseoking.github.io/javascript/2018/07/30/js1.html') + '&title=[javascript] var, let, const 차이'; return false">
+        <i class="fa fa-reddit-square fa-lg"></i>
+      </a>
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+  
+</section> -->
+
+
+
+
+</div>
+</div>
+
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h3 class="footer-heading">민서깅 개발 블로그</h3>
+
+    <div class="site-navigation">
+
+      <p><strong>Site Map</strong></p>
+      <ul class="pages">
+        
+        
+          <li class="nav-link"><a href="/about/">About</a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          <li class="nav-link"><a href="/posts/">Posts</a>
+        
+        
+      </ul>
+    </div>
+
+    <div class="site-contact">
+
+      <p><strong>Contact</strong></p>
+      <ul class="social-media-list">
+        <li>
+          <a href="mailto:lms98923@naver.com">
+            <i class="fa fa-envelope-o"></i>
+            <span class="username">lms98923@naver.com</span>
+          </a>
+        </li>
+
+        
+          
+        
+          
+        
+          
+          <li>
+            <a href="https://github.com/minseoking" title="Fork me on GitHub">
+              <i class="fa fa-github"></i>
+              <span class="username">minseoking</span>
+            </a>
+          </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+
+      </ul>
+    </div>
+
+    <div class="site-signature">
+      <p class="rss-subscribe text"><strong>Subscribe <a href="/feed.xml">via RSS</a></strong></p>
+      <p class="text">개발 공부 블로그
+</p>
+    </div>
+
+  </div>
+
+</footer>
+
+<!-- Scripts -->
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  // Default syntax highlighting
+  hljs.initHighlightingOnLoad();
+
+  // Header
+  var menuToggle = $('#js-mobile-menu').unbind();
+  $('#js-navigation-menu').removeClass("show");
+  menuToggle.on('click', function(e) {
+    e.preventDefault();
+    $('#js-navigation-menu').slideToggle(function(){
+      if($('#js-navigation-menu').is(':hidden')) {
+        $('#js-navigation-menu').removeAttr('style');
+      }
+    });
+  });
+});
+
+</script>
+
+
+
+
+
+
+  </body>
+
+</html>

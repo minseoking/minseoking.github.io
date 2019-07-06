@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>민서깅 개발 블로그</title>
+    <description>개발 공부 블로그
+</description>
+    <link>http://minseoking.github.io/</link>
+    <atom:link href="http://minseoking.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sat, 06 Jul 2019 22:51:12 +0900</pubDate>
+    <lastBuildDate>Sat, 06 Jul 2019 22:51:12 +0900</lastBuildDate>
+    <generator>Jekyll v3.2.1</generator>
+    
+      <item>
+        <title>[javascript] var, let, const 차이</title>
+        <description>&lt;p&gt;친구들과 프론드엔드 스터디후 포스팅하기로 하여 &lt;br /&gt;
+var, let, const 의 차이를 포스팅 하도록 하겠습니다.&lt;br /&gt;
+&lt;del&gt;(1주일도 안간 스터디모임….)&lt;/del&gt;&lt;/p&gt;
+
+&lt;p&gt;우선 var는 function-scoped이고 let, const는 block-scoped입니다.&lt;br /&gt;
+function-scoped : 함수 단위로 유효범위를 가집니다.&lt;br /&gt;
+block-scoped : 블록 단위로만 유효범위를 가집니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;varfunction-scoped&quot;&gt;var(function-scoped)란?&lt;/h2&gt;
+&lt;p&gt;우선 var는 C#의 var 와 다르게 변수의 재 선언이 가능합니다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'test1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'test2'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// test2&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;function-scoped&lt;/code&gt;를 아래의 예제로 이해해보겠습니다.  &lt;br /&gt;
+1번 코드를 보면 for문안에서 item을 지역변수로 사용하고,&lt;br /&gt;
+for문 밖에서 로그를 찍어보면 item 변수 값이 잘 나옵니다.&lt;br /&gt;
+이러한 이유는 &lt;code class=&quot;highlighter-rouge&quot;&gt;호이스팅(hoisting)&lt;/code&gt;으로 다음 포스팅에서 설명하겠습니다.&lt;/p&gt;
+
+&lt;p&gt;2번 코드는 itemValue 라는 함수를 구현하고 함수 내부에서 item변수를 사용합니다.&lt;br /&gt;
+후에 itemValue 함수를 호출한 후에 item 값을 확인해 보니 에러가 발생합니다.&lt;br /&gt;
+에러가 발생한 이유는 var가 함수에서만 유효하기 때문입니다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// 1&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'item : '&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'OutPut :'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// OutPut : 10&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 2&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;itemValue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'item : '&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;itemValue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'OutPut :'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Uncaught ReferenceError: value is not defined&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;!-- ## 호이스팅(Hoisting)란?
+변수 선언문 및 초기화시 해당 함수안에서 최상단으로 끌어올려지는 변수입니다.
+
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'minseok'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'OutPut :'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// OutPut : minseok&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+위 코드는 호이스팅에 의해 아래와 같이 바뀌게 됩니다.
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 선언&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'minseok'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 할당&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'OutPut :'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// OutPut : minseok&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+ --&gt;
+
+&lt;h2 id=&quot;let-constblock-scoped&quot;&gt;let, const(block-scoped)란?&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ES6(ECMAScript 표준의 6번째, ES2015)&lt;/code&gt;에서 추가된 키워드입니다.&lt;br /&gt;
+var 키워드만 존재했기 때문에 변수 재선언, 호이스팅으로 인한 참조 에러가 &lt;br /&gt;
+발생하지 않는 등 혼란스럽고 불 명확한 코드작성을 피하기 위해 만들어졌습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;let&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;const&lt;/code&gt;를 사용하면 변수 재선언이 불가능하고,&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;let&lt;/code&gt;은 변수에 재할당이 가능하지만,(객체지향언어의 변수)&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;const&lt;/code&gt;는 변수 재선언, 재할당 모두 불가능합니다. (객체지향언어의 상수)&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// let&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;letTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'test1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;letTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'test2'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Uncaught SyntaxError: Identifier 'test' has already been declared&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;letTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'test3'&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// const&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;constTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'test1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;constTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'test2'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Uncaught SyntaxError: Identifier 'constTest' has already been declared&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;constTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'test3'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//Uncaught TypeError: Assignment to constant variable.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+</description>
+        <pubDate>Mon, 30 Jul 2018 17:43:59 +0900</pubDate>
+        <link>http://minseoking.github.io/javascript/2018/07/30/js1.html</link>
+        <guid isPermaLink="true">http://minseoking.github.io/javascript/2018/07/30/js1.html</guid>
+        
+        
+        <category>javascript</category>
+        
+      </item>
+    
+      <item>
+        <title>[WindowsServer] 워크스테이션과 주 도메인 사이의 트러스트 관계가 이상이 있습니다.</title>
+        <description>&lt;p&gt;업무중에 도메인 환경에서 특정 서버에 로그인 하다&lt;br /&gt;
+&lt;strong&gt;“워크스테이션과 주 도메인 사이의 트러스트 관계가 이상이 있습니다.”&lt;/strong&gt;&lt;br /&gt;
+해당 오류가 발생하면서 로그인이 불가능하여 해결한 트러블 슈팅 방법입니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;원인&lt;/h2&gt;
+&lt;p&gt;도메인에 조인한 컴퓨터는 자신의 컴퓨터 계정에 대한 암호가 30일 주기로&lt;br /&gt;
+자동 변경되고 변경된 암호는 도메인과 해당 컴퓨터가 공유하게 됩니다.&lt;br /&gt;
+도메인과 해당 컴퓨터간 공유한 컴퓨터 계정의 암호가 달라지게 되면&lt;br /&gt;
+해당 컴퓨터가 도메인에 로그인 시 보안 채널을 생성할 수 없어 로그인에 실패하게 됩니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;해결방법&lt;/h2&gt;
+&lt;p&gt;대상 이름을 찾을 수 없다는 것은 명령어에 입력한 DC를 찾을 수 없다는 것이기 때문에,&lt;br /&gt;
+DC와의 통신이 되는지 확인하시고 아래 명령어를 CMD에서 실행하시면 됩니다.&lt;br /&gt;
+&lt;strong&gt;netdom resetpwd /server:DC이름 또는 IP /userD:아이디 /PasswordD:패스워드&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;출처&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://support.microsoft.com/ko-kr/help/325850/how-to-use-netdom-exe-to-reset-machine-account-passwords-of-a-windows&quot;&gt;https://support.microsoft.com/ko-kr/help/325850/how-to-use-netdom-exe-to-reset-machine-account-passwords-of-a-windows&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 25 May 2018 00:43:59 +0900</pubDate>
+        <link>http://minseoking.github.io/windows/2018/05/24/windows1.html</link>
+        <guid isPermaLink="true">http://minseoking.github.io/windows/2018/05/24/windows1.html</guid>
+        
+        
+        <category>windows</category>
+        
+      </item>
+    
+  </channel>
+</rss>
