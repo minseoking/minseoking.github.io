@@ -3,7 +3,7 @@ layout: post
 title:  "[WindowsServer] 워크스테이션과 주 도메인 사이의 트러스트 관계가 이상이 있습니다."
 date:   2018-05-24 15:43:59
 author: 이민석
-categories: Windows
+categories: windows
 ---
 
 업무중에 도메인 환경에서 특정 서버에 로그인 하다  
