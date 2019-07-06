@@ -1,6 +1,11 @@
-_site
-.sass-cache
-.jekyll-metadata
-*.sublime-project
-*.sublime-workspace
 .DS_Store
+
+# Compiled site
+_site
+
+# Sass garbage
+.sass-cache
+
+# Bundler
+.bundle/
+vendor/

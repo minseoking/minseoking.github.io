@@ -1,0 +1,92 @@
+---
+layout: post
+title:  "[javascript] var, let, const 차이"
+date:   2018-07-30 08:43:59
+author: 이민석
+categories: javascript
+# tags:	jekyll welcome
+# cover:  "/assets/instacode.png"
+---
+
+친구들과 프론드엔드 스터디후 포스팅하기로 하여   
+var, let, const 의 차이를 포스팅 하도록 하겠습니다.  
+~~(1주일도 안간 스터디모임....)~~
+
+우선 var는 function-scoped이고 let, const는 block-scoped입니다.  
+function-scoped : 함수 단위로 유효범위를 가집니다.  
+block-scoped : 블록 단위로만 유효범위를 가집니다.  
+
+## var(function-scoped)란?
+우선 var는 C#의 var 와 다르게 변수의 재 선언이 가능합니다.
+
+{% highlight javascript %}
+var test = 'test1';
+var test = 'test2';
+console.log(test); // test2
+{% endhighlight %}  
+  
+`function-scoped`를 아래의 예제로 이해해보겠습니다.    
+1번 코드를 보면 for문안에서 item을 지역변수로 사용하고,  
+for문 밖에서 로그를 찍어보면 item 변수 값이 잘 나옵니다.  
+이러한 이유는 `호이스팅(hoisting)`으로 다음 포스팅에서 설명하겠습니다.
+
+2번 코드는 itemValue 라는 함수를 구현하고 함수 내부에서 item변수를 사용합니다.  
+후에 itemValue 함수를 호출한 후에 item 값을 확인해 보니 에러가 발생합니다.  
+에러가 발생한 이유는 var가 함수에서만 유효하기 때문입니다.  
+
+{% highlight javascript %}
+// 1
+for(var item=0; item<10; item++) {
+  console.log('item : '+ item);
+}
+console.log('OutPut :'+ item); // OutPut : 10
+
+// 2
+function itemValue () {
+  for(var item=0; item<10; item++) {
+    console.log('item : '+ item)
+  }
+}
+itemValue ();
+console.log('OutPut :'+ item); // Uncaught ReferenceError: value is not defined
+{% endhighlight %}
+
+
+<!-- ## 호이스팅(Hoisting)란?
+변수 선언문 및 초기화시 해당 함수안에서 최상단으로 끌어올려지는 변수입니다.
+
+{% highlight javascript %}
+if(true){
+  var name = 'minseok';
+}
+console.log('OutPut :'+ name); // OutPut : minseok
+{% endhighlight %}
+위 코드는 호이스팅에 의해 아래와 같이 바뀌게 됩니다.
+{% highlight javascript %}
+var name; // 선언
+if(true){
+  name = 'minseok'; // 할당
+}
+console.log('OutPut :'+ name); // OutPut : minseok
+{% endhighlight %} -->
+
+## let, const(block-scoped)란?
+`ES6(ECMAScript 표준의 6번째, ES2015)`에서 추가된 키워드입니다.  
+var 키워드만 존재했기 때문에 변수 재선언, 호이스팅으로 인한 참조 에러가   
+발생하지 않는 등 혼란스럽고 불 명확한 코드작성을 피하기 위해 만들어졌습니다.  
+
+`let`,`const`를 사용하면 변수 재선언이 불가능하고,  
+`let`은 변수에 재할당이 가능하지만,(객체지향언어의 변수)  
+`const`는 변수 재선언, 재할당 모두 불가능합니다. (객체지향언어의 상수)
+
+{% highlight javascript %}
+// let
+let letTest = 'test1';
+let letTest = 'test2'; // Uncaught SyntaxError: Identifier 'test' has already been declared
+letTest = 'test3'
+
+// const
+const constTest = 'test1';
+const constTest = 'test2'; // Uncaught SyntaxError: Identifier 'constTest' has already been declared
+constTest ='test3'; //Uncaught TypeError: Assignment to constant variable.
+{% endhighlight %}

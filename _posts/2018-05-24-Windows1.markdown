@@ -1,0 +1,27 @@
+---
+layout: post
+title:  "[WindowsServer] 워크스테이션과 주 도메인 사이의 트러스트 관계가 이상이 있습니다."
+date:   2018-05-24 15:43:59
+author: 이민석
+categories: Windows
+---
+
+업무중에 도메인 환경에서 특정 서버에 로그인 하다  
+**"워크스테이션과 주 도메인 사이의 트러스트 관계가 이상이 있습니다."**  
+해당 오류가 발생하면서 로그인이 불가능하여 해결한 트러블 슈팅 방법입니다.  
+  
+## 원인
+도메인에 조인한 컴퓨터는 자신의 컴퓨터 계정에 대한 암호가 30일 주기로  
+자동 변경되고 변경된 암호는 도메인과 해당 컴퓨터가 공유하게 됩니다.  
+도메인과 해당 컴퓨터간 공유한 컴퓨터 계정의 암호가 달라지게 되면  
+해당 컴퓨터가 도메인에 로그인 시 보안 채널을 생성할 수 없어 로그인에 실패하게 됩니다.
+  
+## 해결방법
+대상 이름을 찾을 수 없다는 것은 명령어에 입력한 DC를 찾을 수 없다는 것이기 때문에,  
+DC와의 통신이 되는지 확인하시고 아래 명령어를 CMD에서 실행하시면 됩니다.  
+**netdom resetpwd /server:DC이름 또는 IP /userD:아이디 /PasswordD:패스워드**
+  
+## 출처
+[https://support.microsoft.com/ko-kr/help/325850/how-to-use-netdom-exe-to-reset-machine-account-passwords-of-a-windows][source-1]
+
+[source-1]:   https://support.microsoft.com/ko-kr/help/325850/how-to-use-netdom-exe-to-reset-machine-account-passwords-of-a-windows
