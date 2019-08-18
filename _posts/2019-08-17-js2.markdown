@@ -1,0 +1,73 @@
+---
+layout: post
+title:  "[javascript] 호이스팅(Hoisting)이란?"
+date:   2019-08-17 18:30:59
+author: 이민석
+categories: javascript
+# tags:	jekyll welcome
+# cover:  "/assets/instacode.png"
+---
+
+자바스크립트 2번째 포스팅입니다.   
+이번 내용은 저번 포스팅에서 언급했던 호이스팅을 설명하겠습니다.    
+
+
+
+## 호이스팅(Hoisting)란?
+변수 선언 및 초기화시 해당 함수안에서 변수가 분리되어 최상단으로 끌어올려지는 변수입니다.
+
+{% highlight javascript %}
+if(true){
+  var name = 'minseok';
+}
+console.log('OutPut :'+ name); // OutPut : minseok
+{% endhighlight %}
+
+위 코드는 변수 선언보다 호출을 먼저하여 다른언어들처럼 생각하면,   
+에러가 발생할것 같지만 호이스팅에 의해 아래와 같이 바뀌게 됩니다.
+
+{% highlight javascript %}
+var name; // 선언
+if(true){
+  name = 'minseok'; // 할당
+}
+console.log('OutPut :'+ name); // OutPut : minseok
+{% endhighlight %}
+
+전역변수 또한 하나의 함수 스코프처럼 끌어 올려집니다.
+    
+    
+    
+
+## 함수 호이스팅
+함수의 선언도 호이스팅 대상이기 때문에 어떤 위치에서 호출할 수 있습니다.
+
+{% highlight javascript %}
+one();
+two();
+
+function one(){
+  console.log('OutPut : minseok') // Output : minseok
+}
+
+var two = function(){
+    console.log('OutPut : minseok') // Output : minseok
+}
+{% endhighlight %}
+
+위의 코드도 호이스팅에 의해 아래와 같이 바뀌게 되는데,   
+변수에 함수를 선언하게 되면 변수가 분리되어 상단에서 선언만 하기 때문에 에러가 발생하게 됩니다.
+
+{% highlight javascript %}
+function one(){
+  console.log('OutPut : minseok')
+}
+var two;
+
+one();
+two();
+
+two = function(){
+    console.log('OutPut : minseok') // Output : minseok
+}
+{% endhighlight %}
